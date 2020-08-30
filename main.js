@@ -17,13 +17,14 @@ for(const file of commandFiles) {
 
     client.commands.set(command.name, command);
 }
-
+    // Checks chat.
 client.on('message', message => {
     if(!message.content.startsWith(prefix) || message.author.bot) return;
 
     const args = message.content.slice(prefix.length).split(/ +/);
     const command = args.shift().toLowerCase();
 
+    // Add commands to look for in chat. Add new commands in the commands folder.
     switch (command) {
         case 'ping':
             client.commands.get('ping').execute(message, args);
