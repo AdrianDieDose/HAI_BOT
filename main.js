@@ -8,6 +8,8 @@ const prefix = '-';
 
 const fs = require('fs');
 
+const secretClientId = require("../ID/clientid.js");
+
 client.commands = new Discord.Collection();
 
 const commandFiles = fs.readdirSync('./Commands').filter(file => file.endsWith('js'));
@@ -35,6 +37,9 @@ client.on('message', message => {
         case 'help':
             client.commands.get('help').execute(message, args);
         break;
+        case 'wichteln':
+            client.commands.get('wichteln').execute(client, message, args);
+        break;
      //   case 'summonfriends':
      //       
      //   break;
@@ -42,7 +47,7 @@ client.on('message', message => {
 });
 
 client.once('ready', () => {
-    console.log('Tiefsee is online uwu!');
+    console.log('HAI_BOT is online uwu!');
    // console.log(client.user(529619290886766592));
 });
 
@@ -54,4 +59,4 @@ client.once('ready', () => {
 
 
 
-client.login('NzM2MjE2NjU3MzYxNjMzMzIw.XxrlMQ.EGAcJ17O_fXZKcVrDmsCKaEcvnU');
+client.login(secretClientId.clientId);
