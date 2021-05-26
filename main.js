@@ -19,7 +19,7 @@ const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('
 /*Join message*/
 client.on('guildMemberAdd', member =>{
     const welcomeChannel = client.channels.cache.find(channel => channel.id === "821715172451680328");
-    welcomeChannel.send('Brrrrrrrrrr! **' + member.user.username + '** joined '+ "**" + member.guild.name + "**!");
+    welcomeChannel.send('Brinki lässt: **' + member.user.username + '** grüßen. '+ "**" + member.guild.name + "**!");
 
 });
 
@@ -59,6 +59,9 @@ client.on('message', message => {
         break;
         case 'count':
             client.commands.get('count').execute(message, client);
+        break;
+        case 'poll':
+            client.command.get('poll').execute(message, client, args);
         break;
      //   case 'summonfriends':
      //       
