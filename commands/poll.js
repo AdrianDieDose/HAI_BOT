@@ -22,7 +22,7 @@ module.exports = {
             } else if(args[0] == "help"){
                 message.channel.send('-poll help | Prints all help commands');
                 message.channel.send('-poll start [**topic**] | [**option1**] [**option2**] [**option3...**] | Start poll with the topic and options');
-                message.channel.send('-poll vote [**1/2/3**] | Vote on poll');
+                message.channel.send('-poll vote [**1/2/3...**] | Vote on poll');
                 message.channel.send('-poll status | Shows polls status');
                 message.channel.send('-poll end | End poll');
             } else {
