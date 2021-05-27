@@ -61,7 +61,7 @@ client.on('message', message => {
             client.commands.get('count').execute(message, client);
         break;
         case 'poll':
-            client.command.get('poll').execute(message, client, args);
+            client.commands.get('poll').execute(message, client, args);
         break;
      //   case 'summonfriends':
      //       
