@@ -30,7 +30,10 @@ module.exports = {
           "You need to specify a **Topic** first! | Type **-poll help** to find out more."
         );
       }
+
+      //Voteing logic needs to be implimented !!!!!!!!
     } else if (args[0] == "vote" && this.optionsChoosen == true) {
+      // Checks for duplicate voter
       let i = 0;
       do {
         if (message.author.id == this.pollVotersIds[i]) {
