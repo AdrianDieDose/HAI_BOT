@@ -46,8 +46,20 @@ module.exports = {
         }
       } while (i < this.pollVotersIds);
       this.pollVotersIds.push(message.author.id);
-      console.log(message.author.id);
+      
+      //Checks for valid input
+      console.log(parseInt(args[1]));
+      console.log(this.options.length);
+      if(parseInt(args[1]) > this.options.length || parseInt(args[1]) <= 0 || isNaN(parseInt(args[1]))){
+        message.channel.send("Invalid voting option...");
+        return;
+      } else {
+        this.options[parseInt(parseInt(args[1]))-1][1]++;
+        console.log(this.options[parseInt(args[1])-1][1]);
+        console.log(this.options);
+      }
     } else if (args[0] == "end" && message.author.id == this.pollOwnersId) {
+
     } else if (args[0] == "status") {
       message.channel.send("Poll owner: **" + this.pollOwnersName + "**");
       message.channel.send("Poll topic: **" + this.topic.join(" ") + "**");
@@ -66,7 +78,6 @@ module.exports = {
     } else {
       //Needs a reset fix... if no argument is casted everything is reset... what we dont want of course
       //console.log("test rip");
-      console.log("Did it return ?");
       this.optionsChoosen = false;
       this.topicChoosen = false;
       this.topic = [];
@@ -74,7 +85,7 @@ module.exports = {
       this.pollOwnersId = "";
       this.pollVotersIds = [];
       this.pollOwnersName = "";
-      this.message.channel.send("-poll help | Prints all help commands.");
+      message.channel.send("-poll help | Prints all help commands.");
     }
   },
 };
