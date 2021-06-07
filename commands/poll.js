@@ -11,6 +11,7 @@ module.exports = {
   execute(message, client, args) {
     // Add user validation ?
     if (args[0] == "topic" && args.length > 1) {
+      // If someone overrides poll topic... the options stay the same....
       this.pollOwnersId = message.author.id;
       this.pollOwnersName = message.author.username;
       this.topic = args.slice(1, args.length);
@@ -31,7 +32,7 @@ module.exports = {
         );
       }
 
-      //Voteing logic needs to be implimented !!!!!!!!
+      
     } else if (args[0] == "vote" && this.optionsChoosen == true) {
       // Checks for duplicate voter
       let i = 0;
@@ -45,26 +46,41 @@ module.exports = {
           i++;
         }
       } while (i < this.pollVotersIds);
-      this.pollVotersIds.push(message.author.id);
-      
       //Checks for valid input
-      console.log(parseInt(args[1]));
-      console.log(this.options.length);
       if(parseInt(args[1]) > this.options.length || parseInt(args[1]) <= 0 || isNaN(parseInt(args[1]))){
         message.channel.send("Invalid voting option...");
         return;
       } else {
+        this.pollVotersIds.push(message.author.id);
         this.options[parseInt(parseInt(args[1]))-1][1]++;
-        console.log(this.options[parseInt(args[1])-1][1]);
-        console.log(this.options);
+        message.channel.send("**"+ message.author.username +":** voted for option: **" + args[1] + "**!");
       }
-    } else if (args[0] == "end" && message.author.id == this.pollOwnersId) {
+      //NEEDS A FINISHING TOUCH BOI, ALMOST READY ;D
+    } else if (args[0] == "end" && message.author.id == this.pollOwnersId && this.optionsChoosen == true && this.topicChoosen == true) {
+      message.channel.send("**"+"Poll ended!"+"**");
+      message.channel.send("**"+"Results:"+"**");
+      message.channel.send("Poll topic: **" + this.topic.join(" ") + "**");
+      for (let i = 0; i < this.options.length; i++) {
+        message.channel.send("Option " + (i + 1) + ": " + this.options[i][0] + " | **" + this.options[i][1]+"** vote/s.");
+      }
+
+      // RESET
+      this.optionsChoosen = false;
+      this.topicChoosen = false;
+      this.topic = [];
+      this.options = [];
+      this.pollOwnersId = "";
+      this.pollVotersIds = [];
+      this.pollOwnersName = "";
+
+
 
     } else if (args[0] == "status") {
+      // NEEDS CHECK to not display empty topic and owner
       message.channel.send("Poll owner: **" + this.pollOwnersName + "**");
       message.channel.send("Poll topic: **" + this.topic.join(" ") + "**");
       for (let i = 0; i < this.options.length; i++) {
-        message.channel.send("Option " + (i + 1) + ": " + this.options[i][0]);
+        message.channel.send("Option " + (i + 1) + ": " + this.options[i][0] + " | **" + this.options[i][1]+"** vote/s.");
       }
     } else if (args[0] == "help") {
       message.channel.send("-poll help | Prints all help commands.");
@@ -78,6 +94,7 @@ module.exports = {
     } else {
       //Needs a reset fix... if no argument is casted everything is reset... what we dont want of course
       //console.log("test rip");
+      // RESET
       this.optionsChoosen = false;
       this.topicChoosen = false;
       this.topic = [];
