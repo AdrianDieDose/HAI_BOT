@@ -11,7 +11,7 @@ module.exports = {
   execute(message, client, args) {
     // Add user validation ?
     if (args[0] == "topic" && args.length > 1) {
-      // If someone overrides poll topic... the options stay the same....
+      // If someone overrides poll topic... the options stay the same.... | BUG FIX PLS
       this.pollOwnersId = message.author.id;
       this.pollOwnersName = message.author.username;
       this.topic = args.slice(1, args.length);
@@ -76,7 +76,7 @@ module.exports = {
 
 
     } else if (args[0] == "status") {
-      // NEEDS CHECK to not display empty topic and owner
+      // NEEDS CHECK to not display empty topic and owner | BUG FIX
       message.channel.send("Poll owner: **" + this.pollOwnersName + "**");
       message.channel.send("Poll topic: **" + this.topic.join(" ") + "**");
       for (let i = 0; i < this.options.length; i++) {
@@ -92,7 +92,7 @@ module.exports = {
       message.channel.send("-poll status | Shows polls status.");
       message.channel.send("-poll end | End poll.");
     } else {
-      //Needs a reset fix... if no argument is casted everything is reset... what we dont want of course
+      //Needs a reset fix... if no argument is casted everything is reset... what we dont want of course | BUG FIX
       //console.log("test rip");
       // RESET
       this.optionsChoosen = false;
